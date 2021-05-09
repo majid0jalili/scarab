@@ -64,8 +64,8 @@
 
 
 // Majid
-#include "prefetcher/gem5.h"
-#include "prefetcher/gem5.param.h"
+// #include "prefetcher/gem5.h"
+// #include "prefetcher/gem5.param.h"
 
 /**************************************************************************************/
 /* Macros */
@@ -394,7 +394,7 @@ void init_memory() {
 
   init_perf_pred();
   
-  gem5_init();
+  // gem5_init();
 }
 
 void init_uncores(void) {

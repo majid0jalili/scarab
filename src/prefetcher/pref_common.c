@@ -56,6 +56,7 @@
 #include "prefetcher/pref.param.h"
 #include "prefetcher/pref_2dc.h"
 #include "prefetcher/pref_ghb.h"
+#include "prefetcher/gem5.h"
 #include "prefetcher/pref_markov.h"
 #include "prefetcher/pref_phase.h"
 #include "statistics.h"

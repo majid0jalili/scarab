@@ -23,14 +23,23 @@
 #include <iostream>
 #include "ScarabWrapperGem5.h"
 
+#include "tagged.hh"
 
 using namespace Gem5Prefetchers;
-
-
+using namespace Prefetcher;
 using namespace std;
 
+
+
+
 ScarabWrapperGem5::ScarabWrapperGem5( void (*stats_callback)(int,int)) {
-  cout<<"ScarabWrapperGem5"<<endl;;
+  cout<<"ScarabWrapperGem5"<<endl;
+  Tagged * tagged =  new Tagged();
+  vector<uint64_t> address;
+  address.push_back(100);
+  address.push_back(100);
+  tagged->calculatePrefetch(address);
+  
 }
 
 

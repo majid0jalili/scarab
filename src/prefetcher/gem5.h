@@ -37,13 +37,24 @@
 #define EXTERNC
 #endif
 
-EXTERNC void gem5_init();
-EXTERNC void gem5_finish();
+/* HWP Interface */
 
-EXTERNC int  gem5_train_miss(Addr a);
-EXTERNC void gem5_train_hit();
+EXTERNC void pref_gem5_init(HWP* hwp);
+EXTERNC void pref_gem5_ul1_train(uns8 proc_id, Addr lineAddr, Addr loadPC, Flag ul1_hit);
+EXTERNC void pref_gem5_ul1_miss(uns8 proc_id, Addr lineAddr, Addr loadPC,
+                       uns32 global_hist);
+EXTERNC void pref_gem5_ul1_prefhit(uns8 proc_id, Addr lineAddr, Addr loadPC,
+                          uns32 global_hist);
+						  
+EXTERNC void pref_gem5_per_core_done(uns proc_id);				  
 
-EXTERNC int gem5_info();
+// EXTERNC void gem5_init();
+// EXTERNC void gem5_finish();
+
+// EXTERNC int  gem5_train_miss(Addr a);
+// EXTERNC void gem5_train_hit();
+
+// EXTERNC int gem5_info();
 
 #undef EXTERNC
 

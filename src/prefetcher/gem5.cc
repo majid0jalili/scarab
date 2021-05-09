@@ -57,43 +57,52 @@ using namespace Gem5Prefetchers;
 ScarabWrapperGem5* wrapper_gem5 = NULL;
 
 
-void gem5_init();
-void gem5_finish();
 
-int  gem5_train_miss(Addr a);
-void gem5_train_hiy();
-
-int gem5_info();
+void pref_gem5_init(HWP* hwp);
+void pref_gem5_ul1_train(uns8 proc_id, Addr lineAddr, Addr loadPC, Flag ul1_hit);
+void pref_gem5_ul1_miss(uns8 proc_id, Addr lineAddr, Addr loadPC,
+                       uns32 global_hist);
+void pref_gem5_ul1_prefhit(uns8 proc_id, Addr lineAddr, Addr loadPC,
+                          uns32 global_hist);
+						  
 
 void stats_callback_gem5(int coreid, int type);
+void pref_gem5_per_core_done(uns proc_id);
 
 
-
-void gem5_init() {
+void pref_gem5_init(HWP* hwp) {
   
-
+  printf("******pref_gem5_init \n");
   wrapper_gem5 = new ScarabWrapperGem5(&stats_callback_gem5);
 
   DPRINTF("Initialized Ramulator. \n");
 }
 
-void gem5_finish() {
+void stats_callback_gem5(int coreid, int type) {
+  printf("******stats_callback_gem5 \n");
+}
+
+void pref_gem5_ul1_train(uns8 proc_id, Addr lineAddr, Addr loadPC, Flag ul1_hit)
+{
+	printf("******pref_gem5_ul1_train \n");
+}
+
+void pref_gem5_ul1_miss(uns8 proc_id, Addr lineAddr, Addr loadPC,
+                       uns32 global_hist)
+{
+	printf("******pref_gem5_ul1_miss \n");
+}
+
+void pref_gem5_ul1_prefhit(uns8 proc_id, Addr lineAddr, Addr loadPC,
+                          uns32 global_hist)
+{
+	printf("******pref_gem5_ul1_prefhit \n");
+}
+
+void pref_gem5_per_core_done(uns proc_id)
+{
+  printf("******pref_stream_per_core_done \n");
   wrapper_gem5->finish();
 
   delete wrapper_gem5;
-  
 }
-
-void stats_callback_gem5(int coreid, int type) {
-  
-}
-
-int  gem5_train_miss(Addr a)
-{
-	return 0;
-}
-
-void gem5_train_hit(){
-	
-}
-
