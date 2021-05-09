@@ -63,7 +63,7 @@ ScarabWrapperGem5::send()
 void 
 ScarabWrapperGem5::finish(void)
 {
-	
+	printf("ScarabWrapperGem5::finish\n");
 }
 
 void 

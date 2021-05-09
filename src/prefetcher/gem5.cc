@@ -32,6 +32,8 @@
 
 
 
+
+
 #include "gem5_prefetchers/ScarabWrapperGem5.h"
 
 extern "C" {
@@ -42,6 +44,31 @@ extern "C" {
 #include "gem5.h"
 #include "gem5.param.h"
 #include "statistics.h"
+
+
+#include "debug/debug_print.h"
+#include "globals/global_defs.h"
+#include "globals/global_types.h"
+#include "globals/global_vars.h"
+
+
+#include "globals/utils.h"
+#include "op.h"
+
+#include "core.param.h"
+#include "dcache_stage.h"
+#include "debug/debug.param.h"
+
+#include "libs/cache_lib.h"
+#include "libs/hash_lib.h"
+#include "libs/list_lib.h"
+
+#include "prefetcher/l2l1pref.h"
+#include "prefetcher/pref.param.h"
+#include "prefetcher/pref_common.h"
+#include "statistics.h"
+
+
 }
 
 /**************************************************************************************/
@@ -73,9 +100,12 @@ void pref_gem5_per_core_done(uns proc_id);
 void pref_gem5_init(HWP* hwp) {
   
   printf("******pref_gem5_init \n");
+  if(!PREF_GEM5_ON)
+    return;
   wrapper_gem5 = new ScarabWrapperGem5(&stats_callback_gem5);
+  hwp->hwp_info->enabled = TRUE;
+  printf("******pref_gem5_init ScarabWrapperGem5 created \n");
 
-  DPRINTF("Initialized Ramulator. \n");
 }
 
 void stats_callback_gem5(int coreid, int type) {

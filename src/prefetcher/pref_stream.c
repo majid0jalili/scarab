@@ -165,6 +165,7 @@ void pref_stream_train(uns8 proc_id, Addr line_addr, Addr load_PC,
                                                           address of the cache
                                                           block */
 {
+	printf("---stream train!\n");
   // search the stream buffer
   int  hit_index = -1;
   int  ii;
