@@ -23,9 +23,12 @@
 #define __ScarabWrapperGem5_H
 
 #include <string>
-
+#include <vector>
+#include "tagged.hh"
+#include "bop.hh"
 
 using namespace std;
+using namespace Prefetcher;
 
 namespace Gem5Prefetchers
 {
@@ -36,6 +39,8 @@ class ScarabWrapperGem5
 {
 private:
     // MemoryBase *mem;
+	Tagged * tagged;
+	BOP * bop;
 public:
     //double tCK;
     ScarabWrapperGem5(void (* stats_callback)(int, int));
@@ -47,8 +52,10 @@ public:
     void init();
 
 
-	int  train_miss(uint64_t a);
-	void train_hit();
+	vector<uint64_t> train_miss(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist);
+	vector<uint64_t> train_hit(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist);
 
 	int info();
 

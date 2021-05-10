@@ -78,8 +78,10 @@ extern "C" {
 
 /**************************************************************************************/
 
-
+#include <iostream>
+#include <vector>
 using namespace Gem5Prefetchers;
+using namespace std;
 
 ScarabWrapperGem5* wrapper_gem5 = NULL;
 
@@ -98,7 +100,7 @@ void pref_gem5_per_core_done(uns proc_id);
 
 
 void pref_gem5_init(HWP* hwp) {
-  
+  hwp_gem5=hwp;
   printf("******pref_gem5_init \n");
   if(!PREF_GEM5_ON)
     return;
@@ -114,19 +116,35 @@ void stats_callback_gem5(int coreid, int type) {
 
 void pref_gem5_ul1_train(uns8 proc_id, Addr lineAddr, Addr loadPC, Flag ul1_hit)
 {
-	printf("******pref_gem5_ul1_train \n");
+	cout<<("******pref_gem5_ul1_train ")<<ul1_hit<<endl;
 }
 
 void pref_gem5_ul1_miss(uns8 proc_id, Addr lineAddr, Addr loadPC,
                        uns32 global_hist)
 {
-	printf("******pref_gem5_ul1_miss \n");
+
+	
+	vector<uint64_t> candids = wrapper_gem5->train_miss(proc_id, lineAddr, loadPC, global_hist);
+	for(unsigned int i = 0 ; i < candids.size(); i++){
+		pref_addto_ul1req_queue_set(proc_id, candids[i],
+								hwp_gem5->hwp_info->id, 0, loadPC, 0,
+								FALSE);  // FIXME
+	}
+	
+								
+										
 }
 
 void pref_gem5_ul1_prefhit(uns8 proc_id, Addr lineAddr, Addr loadPC,
                           uns32 global_hist)
 {
-	printf("******pref_gem5_ul1_prefhit \n");
+
+	vector<uint64_t> candids = wrapper_gem5->train_hit(proc_id, lineAddr, loadPC, global_hist);
+	for(unsigned int i = 0 ; i < candids.size(); i++){
+		pref_addto_ul1req_queue_set(proc_id, candids[i],
+								hwp_gem5->hwp_info->id, 0, loadPC, 0,
+								FALSE);  // FIXME
+	}
 }
 
 void pref_gem5_per_core_done(uns proc_id)

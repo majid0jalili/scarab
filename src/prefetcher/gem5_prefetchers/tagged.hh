@@ -37,6 +37,10 @@
 #include <vector>
 #include <cstdint> // include this header for uint64_t
 
+
+
+
+
 namespace Prefetcher {
 
 class Tagged
@@ -48,7 +52,8 @@ class Tagged
     Tagged();
     ~Tagged() = default;
 
-    void calculatePrefetch(std::vector<uint64_t> &addresses);
+    void calculatePrefetch(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist, std::vector<uint64_t> &addresses);
 };
 
 } // namespace Prefetcher

@@ -38,7 +38,7 @@
 #endif
 
 /* HWP Interface */
-
+HWP* hwp_gem5;
 EXTERNC void pref_gem5_init(HWP* hwp);
 EXTERNC void pref_gem5_ul1_train(uns8 proc_id, Addr lineAddr, Addr loadPC, Flag ul1_hit);
 EXTERNC void pref_gem5_ul1_miss(uns8 proc_id, Addr lineAddr, Addr loadPC,

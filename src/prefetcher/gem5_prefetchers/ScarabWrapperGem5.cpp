@@ -23,7 +23,7 @@
 #include <iostream>
 #include "ScarabWrapperGem5.h"
 
-#include "tagged.hh"
+
 
 using namespace Gem5Prefetchers;
 using namespace Prefetcher;
@@ -34,11 +34,13 @@ using namespace std;
 
 ScarabWrapperGem5::ScarabWrapperGem5( void (*stats_callback)(int,int)) {
   cout<<"ScarabWrapperGem5"<<endl;
-  Tagged * tagged =  new Tagged();
-  vector<uint64_t> address;
-  address.push_back(100);
-  address.push_back(100);
-  tagged->calculatePrefetch(address);
+  tagged	=  new Tagged();
+  bop 		=  new BOP();
+  // vector<uint64_t> address;
+  // tagged->calculatePrefetch(address);
+  // for(unsigned int i = 0 ; i < address.size(); i++){
+	  // cout<<"address["<<i<<"] "<<address[i]<<endl;
+  // }
   
 }
 
@@ -74,16 +76,27 @@ ScarabWrapperGem5::init()
 
 
 
-int  
-ScarabWrapperGem5::train_miss(uint64_t a)
+vector<uint64_t>  
+ScarabWrapperGem5::train_miss(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist)
 {
-	return 0;
+	// cout<<"train_miss proc_id:"<<hex<<proc_id<<" lineAddr:"<<lineAddr<<" loadPC:"<<loadPC<<" global_hist:"<<global_hist<<endl;
+	vector<uint64_t> address;
+	bop->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
+	
+	return address;
 }
 
 
-void 
-ScarabWrapperGem5::train_hit()
+vector<uint64_t> 
+ScarabWrapperGem5::train_hit(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist)
 {
+	// cout<<"train_hit proc_id:"<<hex<<proc_id<<" lineAddr:"<<lineAddr<<" loadPC:"<<loadPC<<" global_hist:"<<global_hist<<endl;
+	vector<uint64_t> address;
+	bop->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
+	
+	return address;
 	
 }
 
