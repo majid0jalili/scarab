@@ -22,6 +22,7 @@ add_compile_options(
 
 add_subdirectory(ramulator)
 add_subdirectory(prefetcher/gem5_prefetchers)
+add_subdirectory(prefetcher/gem5_prefetchers/libs)
 add_subdirectory(pin/pin_lib)
 
 set(scarab_dirs bp debug bp/template_lib dvfs frontend globals isa libs memory power prefetcher .)
@@ -45,4 +46,5 @@ target_link_libraries(scarab
         ramulator
         pin_lib_for_scarab
         gem5
+        gem5_lib
 )

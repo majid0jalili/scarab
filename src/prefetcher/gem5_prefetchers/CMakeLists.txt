@@ -2,5 +2,6 @@
 
 file(GLOB srcs *.cpp *.h *.cc)
 add_library(gem5 STATIC ${srcs})
+# add_subdirectory("./libs")
 target_compile_definitions(gem5 PRIVATE GEM5)
 target_compile_options(gem5 PRIVATE ${gem5_warnings})

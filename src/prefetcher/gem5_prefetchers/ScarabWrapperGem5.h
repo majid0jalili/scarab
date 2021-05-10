@@ -26,6 +26,7 @@
 #include <vector>
 #include "tagged.hh"
 #include "bop.hh"
+#include "delta_correlating_prediction_tables.hh"
 
 using namespace std;
 using namespace Prefetcher;
@@ -41,6 +42,7 @@ private:
     // MemoryBase *mem;
 	Tagged * tagged;
 	BOP * bop;
+	DCPT * dcpt;
 public:
     //double tCK;
     ScarabWrapperGem5(void (* stats_callback)(int, int));
