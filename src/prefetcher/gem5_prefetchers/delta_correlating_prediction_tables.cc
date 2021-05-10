@@ -1,13 +1,10 @@
 
 
-
-#include "delta_correlating_prediction_tables.hh"
-#include "./libs/associative_set_impl.hh"
 #include <iostream>
 #include <assert.h>
 
-
-
+#include "delta_correlating_prediction_tables.hh"
+#include "./libs/associative_set_impl.hh"
 #include "./libs/set_associative.hh"
 #include "./libs/lfu_rp.hh"
 

@@ -27,6 +27,7 @@
 #include "tagged.hh"
 #include "bop.hh"
 #include "delta_correlating_prediction_tables.hh"
+#include "indirect_memory.hh"
 
 using namespace std;
 using namespace Prefetcher;
@@ -39,10 +40,10 @@ namespace Gem5Prefetchers
 class ScarabWrapperGem5 
 {
 private:
-    // MemoryBase *mem;
 	Tagged * tagged;
 	BOP * bop;
 	DCPT * dcpt;
+	IndirectMemory * imp;
 public:
     //double tCK;
     ScarabWrapperGem5(void (* stats_callback)(int, int));
