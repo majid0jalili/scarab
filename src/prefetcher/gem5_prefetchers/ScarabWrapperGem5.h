@@ -29,6 +29,7 @@
 #include "delta_correlating_prediction_tables.hh"
 #include "indirect_memory.hh"
 #include "irregular_stream_buffer.hh"
+#include "access_map_pattern_matching.hh"
 
 using namespace std;
 using namespace Prefetcher;
@@ -46,6 +47,7 @@ private:
 	DCPT * dcpt;
 	IndirectMemory * imp;
 	IrregularStreamBuffer * isb;
+	AMPM * ampm;
 public:
     //double tCK;
     ScarabWrapperGem5(void (* stats_callback)(int, int));
