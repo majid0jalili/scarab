@@ -30,6 +30,7 @@
 #include "indirect_memory.hh"
 #include "irregular_stream_buffer.hh"
 #include "access_map_pattern_matching.hh"
+#include "stride.hh"
 
 using namespace std;
 using namespace Prefetcher;
@@ -48,6 +49,7 @@ private:
 	IndirectMemory * imp;
 	IrregularStreamBuffer * isb;
 	AMPM * ampm;
+	Stride * stride;
 public:
     //double tCK;
     ScarabWrapperGem5(void (* stats_callback)(int, int));

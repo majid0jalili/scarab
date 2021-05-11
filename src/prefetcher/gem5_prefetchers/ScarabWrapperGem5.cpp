@@ -40,6 +40,7 @@ ScarabWrapperGem5::ScarabWrapperGem5( void (*stats_callback)(int,int)) {
   imp 		=  new IndirectMemory();
   isb 		=  new IrregularStreamBuffer();
   ampm 		=  new AMPM();
+  stride    =  new Stride();
   // vector<uint64_t> address;
   // tagged->calculatePrefetch(address);
   // for(unsigned int i = 0 ; i < address.size(); i++){
@@ -86,7 +87,7 @@ ScarabWrapperGem5::train_miss(uint8_t proc_id, uint64_t lineAddr, uint64_t loadP
 {
 	// cout<<"train_miss proc_id:"<<hex<<proc_id<<" lineAddr:"<<lineAddr<<" loadPC:"<<loadPC<<" global_hist:"<<global_hist<<endl;
 	vector<uint64_t> address;
-	ampm->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
+	stride->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
 	
 	return address;
 }
@@ -98,7 +99,7 @@ ScarabWrapperGem5::train_hit(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC
 {
 	// cout<<"train_hit proc_id:"<<hex<<proc_id<<" lineAddr:"<<lineAddr<<" loadPC:"<<loadPC<<" global_hist:"<<global_hist<<endl;
 	vector<uint64_t> address;
-	ampm->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
+	stride->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
 	
 	return address;
 	
