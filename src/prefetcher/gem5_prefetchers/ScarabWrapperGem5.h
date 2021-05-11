@@ -28,6 +28,7 @@
 #include "bop.hh"
 #include "delta_correlating_prediction_tables.hh"
 #include "indirect_memory.hh"
+#include "irregular_stream_buffer.hh"
 
 using namespace std;
 using namespace Prefetcher;
@@ -44,6 +45,7 @@ private:
 	BOP * bop;
 	DCPT * dcpt;
 	IndirectMemory * imp;
+	IrregularStreamBuffer * isb;
 public:
     //double tCK;
     ScarabWrapperGem5(void (* stats_callback)(int, int));
