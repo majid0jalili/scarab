@@ -79,28 +79,68 @@ ScarabWrapperGem5::init()
 	
 }
 
-
-
 vector<uint64_t>  
-ScarabWrapperGem5::train_miss(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+ScarabWrapperGem5::train_miss_L1(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
                        uint32_t global_hist)
 {
 	// cout<<"train_miss proc_id:"<<hex<<proc_id<<" lineAddr:"<<lineAddr<<" loadPC:"<<loadPC<<" global_hist:"<<global_hist<<endl;
 	vector<uint64_t> address;
-	stride->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
-	
+	bop->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
 	return address;
 }
 
 
 vector<uint64_t> 
-ScarabWrapperGem5::train_hit(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+ScarabWrapperGem5::train_hit_L1(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist)
+{
+	// cout<<"train_hit proc_id:"<<hex<<proc_id<<" lineAddr:"<<lineAddr<<" loadPC:"<<loadPC<<" global_hist:"<<global_hist<<endl;
+	vector<uint64_t> address;
+	bop->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
+	return address;
+	
+}
+
+vector<uint64_t>  
+ScarabWrapperGem5::train_miss_L2(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist)
+{
+	// cout<<"train_miss proc_id:"<<hex<<proc_id<<" lineAddr:"<<lineAddr<<" loadPC:"<<loadPC<<" global_hist:"<<global_hist<<endl;
+	vector<uint64_t> address;
+	stride->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
+	return address;
+}
+
+
+vector<uint64_t> 
+ScarabWrapperGem5::train_hit_L2(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
                        uint32_t global_hist)
 {
 	// cout<<"train_hit proc_id:"<<hex<<proc_id<<" lineAddr:"<<lineAddr<<" loadPC:"<<loadPC<<" global_hist:"<<global_hist<<endl;
 	vector<uint64_t> address;
 	stride->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
+	return address;
 	
+}
+
+vector<uint64_t>  
+ScarabWrapperGem5::train_miss_L3(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist)
+{
+	// cout<<"train_miss proc_id:"<<hex<<proc_id<<" lineAddr:"<<lineAddr<<" loadPC:"<<loadPC<<" global_hist:"<<global_hist<<endl;
+	vector<uint64_t> address;
+	dcpt->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
+	return address;
+}
+
+
+vector<uint64_t> 
+ScarabWrapperGem5::train_hit_L3(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist)
+{
+	// cout<<"train_hit proc_id:"<<hex<<proc_id<<" lineAddr:"<<lineAddr<<" loadPC:"<<loadPC<<" global_hist:"<<global_hist<<endl;
+	vector<uint64_t> address;
+	dcpt->calculatePrefetch(proc_id, lineAddr, loadPC, global_hist, address);
 	return address;
 	
 }

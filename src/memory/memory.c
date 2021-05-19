@@ -842,6 +842,7 @@ void update_memory_queues() {
 }
 
 void update_on_chip_memory_stats() {
+  return;	
   STAT_EVENT_ALL(L1_CYCLE);
   STAT_EVENT(0, MIN2(MEM_REQ_DEMANDS__0 + mem_req_demand_entries / 4,
                      MEM_REQ_DEMANDS_64));

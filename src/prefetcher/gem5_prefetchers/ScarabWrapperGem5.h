@@ -61,9 +61,19 @@ public:
     void init();
 
 
-	vector<uint64_t> train_miss(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+	vector<uint64_t> train_miss_L1(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
                        uint32_t global_hist);
-	vector<uint64_t> train_hit(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+	vector<uint64_t> train_hit_L1(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist);
+					   
+	vector<uint64_t> train_miss_L2(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist);
+	vector<uint64_t> train_hit_L2(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist);
+					   
+    vector<uint64_t> train_miss_L3(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
+                       uint32_t global_hist);
+	vector<uint64_t> train_hit_L3(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
                        uint32_t global_hist);
 
 	int info();

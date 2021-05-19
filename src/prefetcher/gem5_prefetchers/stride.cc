@@ -168,7 +168,7 @@ Stride::calculatePrefetch(uint8_t proc_id, uint64_t lineAddr, uint64_t loadPC,
         for (int d = 1; d <= degree; d++) {
             // Round strides up to atleast 1 cacheline
             int prefetch_stride = new_stride;
-            if (abs(new_stride) < blkSize) {
+            if ( (uint64_t)abs(new_stride) < blkSize) {
                 prefetch_stride = (new_stride < 0) ? -blkSize : blkSize;
             }
 

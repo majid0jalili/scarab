@@ -41,11 +41,20 @@
 HWP* hwp_gem5;
 EXTERNC void pref_gem5_init(HWP* hwp);
 EXTERNC void pref_gem5_ul1_train(uns8 proc_id, Addr lineAddr, Addr loadPC, Flag ul1_hit);
+
+EXTERNC void pref_gem5_dl0_miss(Addr lineAddr, Addr loadPC);
+EXTERNC void pref_gem5_dl0_prefhit(Addr lineAddr, Addr loadPC);
+						  
+EXTERNC void pref_gem5_mlc_miss(uns8 proc_id, Addr lineAddr, Addr loadPC,
+                       uns32 global_hist);
+EXTERNC void pref_gem5_mlc_prefhit(uns8 proc_id, Addr lineAddr, Addr loadPC,
+                          uns32 global_hist);
+						  
 EXTERNC void pref_gem5_ul1_miss(uns8 proc_id, Addr lineAddr, Addr loadPC,
                        uns32 global_hist);
 EXTERNC void pref_gem5_ul1_prefhit(uns8 proc_id, Addr lineAddr, Addr loadPC,
                           uns32 global_hist);
-						  
+					  
 EXTERNC void pref_gem5_per_core_done(uns proc_id);				  
 
 // EXTERNC void gem5_init();

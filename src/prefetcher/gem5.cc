@@ -89,10 +89,19 @@ ScarabWrapperGem5* wrapper_gem5 = NULL;
 
 void pref_gem5_init(HWP* hwp);
 void pref_gem5_ul1_train(uns8 proc_id, Addr lineAddr, Addr loadPC, Flag ul1_hit);
+
+void pref_gem5_dl0_miss(Addr lineAddr, Addr loadPC);
+void pref_gem5_dl0_prefhit(Addr lineAddr, Addr loadPC);
+
+void pref_gem5_mlc_miss(uns8 proc_id, Addr lineAddr, Addr loadPC,
+                       uns32 global_hist);
+void pref_gem5_mlc_prefhit(uns8 proc_id, Addr lineAddr, Addr loadPC,
+						uns32 global_hist);
+
 void pref_gem5_ul1_miss(uns8 proc_id, Addr lineAddr, Addr loadPC,
                        uns32 global_hist);
 void pref_gem5_ul1_prefhit(uns8 proc_id, Addr lineAddr, Addr loadPC,
-                          uns32 global_hist);
+						uns32 global_hist);
 						  
 
 void stats_callback_gem5(int coreid, int type);
@@ -119,27 +128,70 @@ void pref_gem5_ul1_train(uns8 proc_id, Addr lineAddr, Addr loadPC, Flag ul1_hit)
 	cout<<("******pref_gem5_ul1_train ")<<ul1_hit<<endl;
 }
 
+///////////////////L1
+void pref_gem5_dl0_miss(Addr lineAddr, Addr loadPC)
+{
+	
+	vector<uint64_t> candids = wrapper_gem5->train_miss_L1(0, lineAddr, loadPC, 0);
+	// cout<<"pref_gem5_dl0_miss size: "<<candids.size()<<endl;
+	// for(unsigned int i = 0 ; i < candids.size(); i++){
+		// pref_addto_dl0req_queue(0, candids[i],
+								 // 0);  // FIXME
+	// }
+}
+
+void pref_gem5_dl0_prefhit(Addr lineAddr, Addr loadPC)
+{
+	vector<uint64_t> candids = wrapper_gem5->train_miss_L1(0, lineAddr, loadPC, 0);
+	// cout<<"pref_gem5_dl0_prefhit size: "<<candids.size()<<endl;
+	// for(unsigned int i = 0 ; i < candids.size(); i++){
+		// pref_addto_dl0req_queue(0, candids[i],
+								 // 0);  // FIXME
+	// }
+}
+
+///////////////////L2
+void pref_gem5_mlc_miss(uns8 proc_id, Addr lineAddr, Addr loadPC,
+                       uns32 global_hist)
+{
+	vector<uint64_t> candids = wrapper_gem5->train_miss_L2(proc_id, lineAddr, loadPC, global_hist);
+	// cout<<"pref_gem5_mlc_miss size: "<<candids.size()<<endl;
+	for(unsigned int i = 0 ; i < candids.size(); i++){
+		pref_addto_umlc_req_queue(proc_id, candids[i],
+								 hwp_gem5->hwp_info->id);  // FIXME
+	}
+}
+
+void pref_gem5_mlc_prefhit(uns8 proc_id, Addr lineAddr, Addr loadPC,
+                          uns32 global_hist)
+{
+	vector<uint64_t> candids = wrapper_gem5->train_hit_L2(proc_id, lineAddr, loadPC, global_hist);
+	// cout<<"pref_gem5_mlc_prefhit size: "<<candids.size()<<endl;
+	for(unsigned int i = 0 ; i < candids.size(); i++){
+		pref_addto_umlc_req_queue(proc_id, candids[i],
+								 hwp_gem5->hwp_info->id);  // FIXME
+	}
+}
+
+
+///////////////////LLC
 void pref_gem5_ul1_miss(uns8 proc_id, Addr lineAddr, Addr loadPC,
                        uns32 global_hist)
 {
-
-	
-	vector<uint64_t> candids = wrapper_gem5->train_miss(proc_id, lineAddr, loadPC, global_hist);
+	vector<uint64_t> candids = wrapper_gem5->train_miss_L3(proc_id, lineAddr, loadPC, global_hist);
+	// cout<<"pref_gem5_ul1_miss size: "<<candids.size()<<endl;
 	for(unsigned int i = 0 ; i < candids.size(); i++){
 		pref_addto_ul1req_queue_set(proc_id, candids[i],
 								hwp_gem5->hwp_info->id, 0, loadPC, 0,
 								FALSE);  // FIXME
 	}
-	
-								
-										
 }
 
 void pref_gem5_ul1_prefhit(uns8 proc_id, Addr lineAddr, Addr loadPC,
                           uns32 global_hist)
 {
-
-	vector<uint64_t> candids = wrapper_gem5->train_hit(proc_id, lineAddr, loadPC, global_hist);
+	vector<uint64_t> candids = wrapper_gem5->train_hit_L3(proc_id, lineAddr, loadPC, global_hist);
+	// cout<<"pref_gem5_ul1_prefhit size: "<<candids.size()<<endl;
 	for(unsigned int i = 0 ; i < candids.size(); i++){
 		pref_addto_ul1req_queue_set(proc_id, candids[i],
 								hwp_gem5->hwp_info->id, 0, loadPC, 0,

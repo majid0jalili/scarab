@@ -19,7 +19,7 @@ using namespace ReplacementPolicy;
 namespace Prefetcher {
 	// SetAssociative(uint32_t size, unsigned assocs, unsigned entry_size);
 
-DeltaCorrelatingPredictionTables::DeltaCorrelatingPredictionTables():table(128, 128, new SetAssociative(128, 128, 1), new LFU(), DCPTEntry(20))
+DeltaCorrelatingPredictionTables::DeltaCorrelatingPredictionTables():table(256, 256, new SetAssociative(256, 256, 1), new LFU(), DCPTEntry(20))
 {
 	cout<<"Creating Table"<<endl;
 	deltaBits = 12;
@@ -60,6 +60,7 @@ DeltaCorrelatingPredictionTables::DCPTEntry::addAddress(uint64_t address,
                 delta = 0;
             }
         }
+		// cout<<"deltas.size() "<<deltas.size()<<endl;
         deltas.push_back(delta);
         lastAddress = address;
     }
@@ -96,7 +97,10 @@ DeltaCorrelatingPredictionTables::DCPTEntry::getCandidates(
             uint64_t addr = lastAddress;
             while (it != deltas.end()) {
                 const int pf_delta = *(it++);
+				// cout<<"addr "<<addr<<" pf_delta "<<pf_delta<<" deltas.size() "<<deltas.size()<<endl;
+				// getchar();
                 addr += pf_delta;
+				
                 pfs.push_back(addr);
             }
             break;
@@ -120,12 +124,9 @@ DeltaCorrelatingPredictionTables::calculatePrefetch(
     DCPTEntry *entry = table.findEntry(pc, false /* unused */);
 	// cout<<"2"<<endl;
     if (entry != nullptr) {
-		// cout<<"3"<<endl;
         entry->addAddress(address, deltaBits);
-		// cout<<"4"<<endl;
         //Delta correlating
         entry->getCandidates(addresses, deltaMaskBits);
-		// cout<<"5"<<endl;
     } else {
 		// cout<<"6"<<endl;
         entry = table.findVictim(pc);

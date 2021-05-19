@@ -156,6 +156,11 @@
 --mem_req_buffer_pref_watermark 4
 --promote_to_higher_priority_mem_req_type 1
 
+
+##########
+--l2l1pref_on 1
+--l2next_pref_on 1
+# --l2markv_pref_on 1
 ### Memory
 --addr_translation		random
 
@@ -211,10 +216,12 @@
 
 
 ### Debug
---debug_inst_start              0
+--debug_inst_start             0
 --debug_inst_stop              -1
 --debug_cycle_start             0
 --debug_cycle_stop             -1
+--debug_memory            1
+--debug_pref            1
 
 
 ## Stats and Params

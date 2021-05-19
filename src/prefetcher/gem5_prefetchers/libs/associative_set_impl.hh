@@ -35,6 +35,9 @@ using namespace std;
 
 #include "associative_set.hh"
 
+// table(128, 128, new SetAssociative(128, 128, 1), new LFU(), DCPTEntry(20)
+
+
 template<class Entry>
 AssociativeSet<Entry>::AssociativeSet(int assoc, int num_entries,
         BaseIndexingPolicy *idx_policy, ReplacementPolicy::Base *rpl_policy,
@@ -43,6 +46,12 @@ AssociativeSet<Entry>::AssociativeSet(int assoc, int num_entries,
     replacementPolicy(rpl_policy), entries(numEntries, init_value)
 {
 
+	cout<<"assoc "<<assoc<<endl;
+	cout<<"num_entries "<<num_entries<<endl;
+	cout<<"assoc "<<assoc<<endl;
+	cout<<"assoc "<<assoc<<endl;
+	
+	
     for (unsigned int entry_idx = 0; entry_idx < numEntries; entry_idx += 1) {
 		// cout<<"entry_idx "<<entry_idx<<endl;
         Entry* entry = &entries[entry_idx];
